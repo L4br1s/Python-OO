@@ -1,0 +1,49 @@
+class Acount:
+    def __init__(self, id, nome, saldo, limite):
+        self.ID = id
+        self.__nome = nome
+        self.__saldo = saldo
+        self.__limite = limite
+
+    @property
+    def saldo(self):
+        return self.saldo
+
+    @property
+    def nome(self):
+        return self.__nome.title()
+
+    @property
+    def limite(self):
+       return self.__limite
+
+    @limite.setter
+    def limite(self, limite):
+        self.__limite = limite
+
+    @staticmethod
+    def cod_banco():
+        return "001"
+
+
+    def extrato(self):
+        print("O saldo de {} é de R$ {}".format(self.__nome, self.__saldo))
+
+    def deposito(self, valor):
+        self.__saldo += valor
+
+    def pode_sacar(self,valor_saque):
+        valor_disponivel = self.__saldo + self.__limite
+        return valor_saque <= valor_disponivel
+
+    def saque(self, valor):
+        if self.pode_sacar(valor):
+         self.__saldo -= valor
+
+        else:
+            print("Não é possivel realizar o saque, valor exigido ultrapassa o limite da conta.")
+
+    def transferir(self,valor,destino):
+        self.saque(valor)
+        destino.deposito(valor)
+
